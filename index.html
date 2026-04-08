@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>一二三 PJT — ヒアリング結果報告と今後の進め方</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --sf:#0070d2;--sf-light:#1b96ff;--sf-dark:#005fb2;
+  --bg:#fafbfd;--white:#ffffff;--surface:#ffffff;
+  --gray50:#f8fafc;--gray100:#f1f5f9;--gray200:#e2e8f0;--gray300:#cbd5e1;
+  --gray400:#94a3b8;--gray500:#64748b;--gray600:#475569;--gray700:#334155;--gray800:#1e293b;--gray900:#0f172a;
+  --red:#ef4444;--red-bg:#fef2f2;--red-border:#fecaca;
+  --yellow:#f59e0b;--yellow-bg:#fffbeb;--yellow-border:#fde68a;
+  --green:#22c55e;--green-bg:#f0fdf4;--green-border:#bbf7d0;
+  --blue-bg:#eff6ff;--blue-border:#bfdbfe;
+  --purple:#8b5cf6;--purple-bg:#f5f3ff;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.05);
+  --shadow:0 1px 3px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,.06);
+  --shadow-md:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);
+  --shadow-lg:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);
+  --radius:12px;--radius-lg:16px;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--gray800);font-family:-apple-system,'Hiragino Sans','Helvetica Neue',sans-serif;line-height:1.7}
+
+/* ===== NAV ===== */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--gray200);padding:0 24px}
+.nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:24px;height:56px}
+.nav-logo{font-size:.85rem;font-weight:800;color:var(--sf);white-space:nowrap}
+.nav-links{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{font-size:.75rem;color:var(--gray500);text-decoration:none;padding:6px 14px;border-radius:999px;white-space:nowrap;transition:all .2s;font-weight:500}
+.nav-links a:hover{color:var(--sf);background:var(--blue-bg)}
+.nav-links a.active{color:var(--white);background:var(--sf)}
+
+/* ===== HERO ===== */
+#hero{padding:130px 24px 80px;text-align:center;background:linear-gradient(135deg,#eff6ff 0%,#fafbfd 40%,#f0fdf4 100%);position:relative;overflow:hidden}
+#hero::before{content:'';position:absolute;top:-120px;right:-120px;width:400px;height:400px;background:radial-gradient(circle,rgba(0,112,210,.06),transparent 70%);border-radius:50%}
+#hero::after{content:'';position:absolute;bottom:-80px;left:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(34,197,94,.05),transparent 70%);border-radius:50%}
+#hero h1{font-size:clamp(1.6rem,4vw,2.6rem);font-weight:800;margin-bottom:8px;line-height:1.4;color:var(--gray900);position:relative;z-index:1}
+#hero h1 .sf{background:linear-gradient(135deg,var(--sf),var(--sf-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+#hero .subtitle{color:var(--gray500);font-size:clamp(.85rem,2vw,1.05rem);margin-bottom:8px;position:relative;z-index:1}
+#hero .date{color:var(--gray400);font-size:.82rem;margin-bottom:36px;position:relative;z-index:1}
+.agenda-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:840px;margin:0 auto;position:relative;z-index:1}
+@media(max-width:700px){.agenda-cards{grid-template-columns:1fr}}
+.agenda-card{background:var(--white);border:1px solid var(--gray200);border-radius:var(--radius-lg);padding:24px 20px;text-align:left;transition:all .3s;cursor:pointer;text-decoration:none;color:inherit;box-shadow:var(--shadow)}
+.agenda-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--sf)}
+.agenda-num{font-size:.68rem;font-weight:700;letter-spacing:.1em;margin-bottom:8px;display:inline-block;padding:3px 10px;border-radius:6px}
+.agenda-card:nth-child(1) .agenda-num{color:var(--sf);background:var(--blue-bg)}
+.agenda-card:nth-child(2) .agenda-num{color:var(--green);background:var(--green-bg)}
+.agenda-card:nth-child(3) .agenda-num{color:var(--yellow);background:var(--yellow-bg)}
+.agenda-card h3{font-size:1rem;font-weight:700;margin-bottom:4px;color:var(--gray900)}
+.agenda-card p{font-size:.78rem;color:var(--gray500)}
+
+/* ===== SECTIONS ===== */
+.sec{max-width:1080px;margin:0 auto;padding:80px 24px}
+.sec-label{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:8px;display:inline-block;padding:3px 12px;border-radius:6px}
+.sec-label.blue{color:var(--sf);background:var(--blue-bg)}
+.sec-label.green{color:var(--green);background:var(--green-bg)}
+.sec-label.amber{color:var(--yellow);background:var(--yellow-bg)}
+.sec-title{font-size:clamp(1.3rem,3.5vw,1.9rem);font-weight:800;margin-bottom:12px;color:var(--gray900)}
+.sec-desc{color:var(--gray500);font-size:.95rem;margin-bottom:40px;max-width:720px}
+.divider{max-width:1080px;margin:0 auto;padding:0 24px}
+.divider hr{border:none;border-top:1px solid var(--gray200)}
+
+/* ===== STATS ROW ===== */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:48px}
+.stat{background:var(--white);border:1px solid var(--gray200);border-radius:var(--radius);padding:20px;text-align:center;box-shadow:var(--shadow-sm)}
+.stat-val{font-size:1.6rem;font-weight:800;color:var(--sf);font-variant-numeric:tabular-nums}
+.stat-lbl{font-size:.75rem;color:var(--gray500);margin-top:2px}
+
+/* ===== TIMELINE ===== */
+.tl{position:relative;padding-left:36px;margin-bottom:48px}
+.tl::before{content:'';position:absolute;left:13px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--sf),var(--green))}
+.tl-item{position:relative;margin-bottom:20px}
+.tl-item::before{content:'';position:absolute;left:-36px;top:6px;width:12px;height:12px;border-radius:50%;border:2.5px solid var(--gray300);background:var(--white);z-index:1}
+.tl-item.milestone::before{border-color:var(--sf);background:var(--sf);box-shadow:0 0 0 4px rgba(0,112,210,.15)}
+.tl-date{font-size:.72rem;color:var(--sf);font-weight:700;letter-spacing:.04em;margin-bottom:2px}
+.tl-title{font-size:.9rem;font-weight:700;color:var(--gray800);margin-bottom:3px}
+.tl-body{font-size:.8rem;color:var(--gray500);line-height:1.6}
+
+/* ===== FINDING CARDS ===== */
+.findings{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:48px}
+.finding{background:var(--white);border:1px solid var(--gray200);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow-sm);transition:all .3s}
+.finding:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.finding-badge{display:inline-block;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:4px;margin-bottom:10px}
+.finding-badge.critical{background:var(--red-bg);color:var(--red)}
+.finding-badge.warning{background:var(--yellow-bg);color:var(--yellow)}
+.finding h4{font-size:.9rem;font-weight:700;color:var(--gray800);margin-bottom:6px}
+.finding p{font-size:.8rem;color:var(--gray500);line-height:1.6}
+.finding .evidence{font-size:.7rem;color:var(--gray400);margin-top:10px;padding-top:10px;border-top:1px solid var(--gray100)}
+
+/* ===== EXCEL MAP ===== */
+.excel-map{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:48px}
+.excel-item{background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--radius);padding:16px;text-align:center}
+.excel-item h5{font-size:.82rem;font-weight:700;color:#15803d;margin-bottom:4px}
+.excel-item p{font-size:.72rem;color:var(--gray500)}
+
+/* ===== FLOW DIAGRAM ===== */
+.flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:48px;padding:24px;background:var(--white);border:1px solid var(--gray200);border-radius:var(--radius-lg);box-shadow:var(--shadow)}
+.flow-step{background:var(--gray50);border:1px solid var(--gray200);border-radius:10px;padding:12px 14px;text-align:center;min-width:100px;flex:1}
+.flow-step.problem{border-color:var(--red-border);background:var(--red-bg)}
+.flow-step h5{font-size:.76rem;font-weight:700;color:var(--gray700);margin-bottom:2px}
+.flow-step p{font-size:.65rem;color:var(--gray500)}
+.flow-step.problem p small{color:var(--red);font-weight:600}
+.flow-arrow{color:var(--gray400);font-size:1rem;flex-shrink:0}
+@media(max-width:700px){.flow{flex-direction:column}.flow-arrow{transform:rotate(90deg)}}
+
+/* ===== SUMMARY BOX ===== */
+.summary-box{background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:var(--radius-lg);padding:28px;margin-bottom:48px}
+.summary-box h4{font-size:.92rem;font-weight:700;color:var(--sf);margin-bottom:12px}
+.summary-box p{font-size:.85rem;color:var(--gray600);line-height:1.9}
+.summary-box strong{color:var(--gray800)}
+
+/* ===== BEFORE/AFTER ===== */
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:48px}
+@media(max-width:700px){.ba-grid{grid-template-columns:1fr}}
+.ba-col{border-radius:var(--radius-lg);padding:24px;border:1px solid}
+.ba-col.before{background:var(--red-bg);border-color:var(--red-border)}
+.ba-col.after{background:var(--blue-bg);border-color:var(--blue-border)}
+.ba-tag{display:inline-block;padding:3px 12px;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.04em;margin-bottom:14px}
+.ba-tag.before-tag{background:rgba(239,68,68,.15);color:var(--red)}
+.ba-tag.after-tag{background:rgba(0,112,210,.15);color:var(--sf)}
+.ba-list{list-style:none;padding:0}
+.ba-list li{font-size:.82rem;color:var(--gray600);padding:6px 0 6px 20px;position:relative}
+.ba-list li::before{content:'';position:absolute;left:4px;top:13px;width:7px;height:7px;border-radius:50%}
+.before .ba-list li::before{background:var(--red)}
+.after .ba-list li::before{background:var(--sf)}
+.ba-list li strong{color:var(--gray800)}
+
+/* ===== GANTT / MILESTONE TIMELINE ===== */
+.gantt{margin-bottom:48px}
+.gantt-phase{margin-bottom:32px}
+.gantt-phase-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.gantt-phase-badge{font-size:.68rem;font-weight:700;padding:4px 12px;border-radius:6px;letter-spacing:.06em}
+.gantt-phase-badge.p1{background:var(--blue-bg);color:var(--sf);border:1px solid var(--blue-border)}
+.gantt-phase-badge.p2{background:var(--green-bg);color:#15803d;border:1px solid var(--green-border)}
+.gantt-phase-badge.p3{background:var(--yellow-bg);color:#b45309;border:1px solid var(--yellow-border)}
+.gantt-phase-badge.p4{background:var(--purple-bg);color:var(--purple);border:1px solid #ddd6fe}
+.gantt-phase-title{font-size:1.05rem;font-weight:700;color:var(--gray900)}
+.gantt-rows{display:flex;flex-direction:column;gap:8px}
+
+.milestone-row{background:var(--white);border:1px solid var(--gray200);border-radius:var(--radius);padding:16px 20px;display:grid;grid-template-columns:100px 1fr 140px 100px;gap:16px;align-items:center;box-shadow:var(--shadow-sm);transition:all .2s}
+.milestone-row:hover{box-shadow:var(--shadow);border-color:var(--sf)}
+@media(max-width:800px){.milestone-row{grid-template-columns:1fr;gap:8px}}
+
+.ms-week{font-size:.72rem;font-weight:700;color:var(--sf);background:var(--blue-bg);padding:4px 10px;border-radius:6px;text-align:center;white-space:nowrap}
+.ms-content h5{font-size:.85rem;font-weight:700;color:var(--gray800);margin-bottom:2px}
+.ms-content p{font-size:.75rem;color:var(--gray500)}
+.ms-who{font-size:.72rem;color:var(--gray500);text-align:center}
+.ms-who strong{color:var(--gray700);display:block}
+.ms-status{font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:6px;text-align:center;white-space:nowrap}
+.ms-status.build{background:var(--blue-bg);color:var(--sf)}
+.ms-status.design{background:var(--purple-bg);color:var(--purple)}
+.ms-status.release{background:var(--green-bg);color:#15803d}
+.ms-status.plan{background:var(--yellow-bg);color:#b45309}
+
+/* ===== ISSUE → SOLUTION MAP ===== */
+.solution-map{margin-bottom:48px}
+.sol-row{background:var(--white);border:1px solid var(--gray200);border-radius:var(--radius);padding:16px 20px;margin-bottom:8px;display:grid;grid-template-columns:auto 1fr auto 1fr auto;gap:12px;align-items:center;box-shadow:var(--shadow-sm)}
+@media(max-width:800px){.sol-row{grid-template-columns:1fr;gap:8px}}
+.sol-issue{background:var(--red-bg);border-radius:8px;padding:10px 14px}
+.sol-issue h5{font-size:.78rem;font-weight:700;color:var(--red)}
+.sol-issue p{font-size:.7rem;color:var(--gray500)}
+.sol-arrow{color:var(--gray400);font-size:1.2rem;text-align:center}
+.sol-how{background:var(--gray50);border-radius:8px;padding:10px 14px}
+.sol-how h5{font-size:.78rem;font-weight:700;color:var(--gray700)}
+.sol-how p{font-size:.7rem;color:var(--gray500)}
+.sol-result{background:var(--green-bg);border-radius:8px;padding:10px 14px}
+.sol-result h5{font-size:.78rem;font-weight:700;color:#15803d}
+.sol-result p{font-size:.7rem;color:var(--gray500)}
+.sol-when{font-size:.68rem;font-weight:700;color:var(--sf);background:var(--blue-bg);padding:4px 10px;border-radius:6px;text-align:center;white-space:nowrap}
+
+/* ===== TEAM ===== */
+.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:48px}
+.team-card{background:var(--white);border:1px solid var(--gray200);border-radius:var(--radius);padding:16px;display:flex;gap:12px;align-items:flex-start;box-shadow:var(--shadow-sm)}
+.team-avatar{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;color:var(--white);flex-shrink:0}
+.team-card h5{font-size:.85rem;font-weight:700;color:var(--gray800);margin-bottom:2px}
+.team-card p{font-size:.72rem;color:var(--gray500)}
+
+/* ===== RISK CARDS ===== */
+.risk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:48px}
+.risk-card{background:var(--white);border:1px solid var(--gray200);border-radius:var(--radius);padding:20px;border-left:4px solid;box-shadow:var(--shadow-sm)}
+.risk-card.risk-high{border-left-color:var(--red)}
+.risk-card.risk-mid{border-left-color:var(--yellow)}
+.risk-card h5{font-size:.85rem;font-weight:700;color:var(--gray800);margin-bottom:6px}
+.risk-card p{font-size:.78rem;color:var(--gray500);line-height:1.6}
+.risk-card .mitigation{font-size:.75rem;color:#15803d;margin-top:10px;padding-top:10px;border-top:1px solid var(--gray100);font-weight:500}
+
+/* ===== ACTION ITEMS ===== */
+.actions{margin-bottom:48px}
+.action{background:var(--white);border:1px solid var(--gray200);border-radius:var(--radius);padding:16px 20px;margin-bottom:8px;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;box-shadow:var(--shadow-sm);transition:all .2s}
+.action:hover{box-shadow:var(--shadow);border-color:var(--sf)}
+.action-num{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;flex-shrink:0}
+.action-num.p-high{background:var(--red-bg);color:var(--red)}
+.action-num.p-mid{background:var(--yellow-bg);color:var(--yellow)}
+.action-num.p-low{background:var(--blue-bg);color:var(--sf)}
+.action-content h5{font-size:.85rem;font-weight:700;color:var(--gray800);margin-bottom:2px}
+.action-content p{font-size:.78rem;color:var(--gray500)}
+.action-meta{text-align:right;flex-shrink:0}
+.action-who{font-size:.75rem;color:var(--gray700);font-weight:600}
+.action-when{font-size:.68rem;color:var(--sf)}
+@media(max-width:600px){.action{grid-template-columns:auto 1fr;gap:10px}.action-meta{grid-column:2;text-align:left}}
+
+/* ===== CONFIRM TABLE ===== */
+.confirm-table{width:100%;border-collapse:separate;border-spacing:0;font-size:.82rem;margin-bottom:48px;background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--gray200)}
+.confirm-table th{text-align:left;padding:12px 16px;color:var(--sf);font-weight:600;font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;background:var(--gray50);border-bottom:2px solid var(--gray200)}
+.confirm-table td{padding:12px 16px;border-bottom:1px solid var(--gray100);color:var(--gray600);vertical-align:top}
+.confirm-table tr:last-child td{border-bottom:none}
+.confirm-table td:first-child{color:var(--gray800);font-weight:600}
+
+/* ===== CALLOUT ===== */
+.callout{background:var(--white);border:1px solid var(--gray200);border-radius:var(--radius-lg);padding:24px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:48px;box-shadow:var(--shadow)}
+.callout-item{text-align:center;flex:1;min-width:140px}
+.callout-val{font-size:1.3rem;font-weight:800}
+.callout-lbl{font-size:.75rem;color:var(--gray500);margin-top:2px}
+
+/* ===== CLOSING ===== */
+.closing{text-align:center;max-width:720px;margin:0 auto;padding:100px 24px}
+.closing p{color:var(--gray500);font-size:1rem;line-height:2;margin-bottom:24px}
+.closing .big{font-size:clamp(1.1rem,3vw,1.5rem);font-weight:800;color:var(--gray900);line-height:1.8}
+
+footer{text-align:center;padding:40px 24px;border-top:1px solid var(--gray200);font-size:.75rem;color:var(--gray400);background:var(--white)}
+
+/* ===== SUB HEADING ===== */
+.sub-heading{font-size:1.05rem;font-weight:700;color:var(--gray900);margin-bottom:16px}
+.sub-desc{font-size:.85rem;color:var(--gray500);margin-bottom:20px}
+
+/* ===== SCROLL REVEAL ===== */
+[data-r]{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+[data-r].vis{opacity:1;transform:translateY(0)}
+
+/* ===== TIMELINE LINK ===== */
+.tl-link{text-decoration:none;color:inherit;display:block;padding:12px 16px;margin:-12px -16px;border-radius:var(--radius);transition:background .2s}
+.tl-link:hover{background:var(--blue-bg)}
+.tl-link .tl-title::after{content:' →';color:var(--sf);font-size:.78rem;opacity:0;transition:opacity .2s}
+.tl-link:hover .tl-title::after{opacity:1}
+
+/* ===== MODAL ===== */
+.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(15,23,42,.45);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .3s}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal-panel{position:fixed;top:0;right:0;bottom:0;width:min(720px,92vw);z-index:201;background:var(--white);box-shadow:-8px 0 30px rgba(0,0,0,.12);transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);overflow-y:auto;overscroll-behavior:contain}
+.modal-panel.open{transform:translateX(0)}
+.modal-header{position:sticky;top:0;z-index:10;background:var(--white);border-bottom:1px solid var(--gray200);padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
+.modal-header h3{font-size:1rem;font-weight:700;color:var(--gray900)}
+.modal-close{width:36px;height:36px;border-radius:8px;border:1px solid var(--gray200);background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--gray500);transition:all .2s}
+.modal-close:hover{background:var(--gray100);color:var(--gray800)}
+.modal-body{padding:24px}
+
+/* Modal: meta */
+.modal-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.modal-meta-tag{font-size:.72rem;padding:4px 10px;border-radius:6px;font-weight:600}
+.modal-meta-tag.date{background:var(--blue-bg);color:var(--sf)}
+.modal-meta-tag.duration{background:var(--green-bg);color:#15803d}
+.modal-meta-tag.attendees{background:var(--purple-bg);color:var(--purple)}
+
+/* Modal: summary */
+.modal-summary{background:var(--gray50);border:1px solid var(--gray200);border-radius:var(--radius);padding:16px;margin-bottom:24px;font-size:.85rem;color:var(--gray600);line-height:1.8}
+
+/* Modal: table */
+.modal-table{width:100%;border-collapse:separate;border-spacing:0;font-size:.8rem;margin-bottom:24px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--gray200)}
+.modal-table th{text-align:left;padding:10px 12px;background:var(--gray50);color:var(--sf);font-weight:600;font-size:.7rem;letter-spacing:.04em;text-transform:uppercase;border-bottom:1px solid var(--gray200)}
+.modal-table td{padding:10px 12px;border-bottom:1px solid var(--gray100);color:var(--gray600);vertical-align:top}
+.modal-table tr:last-child td{border-bottom:none}
+.modal-table td:first-child{font-weight:600;color:var(--gray800)}
+
+/* Modal: section title */
+.modal-sec{font-size:.85rem;font-weight:700;color:var(--gray900);margin:24px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--gray200)}
+
+/* Modal: action list */
+.modal-actions{list-style:none;padding:0;margin-bottom:24px}
+.modal-actions li{font-size:.8rem;color:var(--gray600);padding:8px 0 8px 20px;position:relative;border-bottom:1px solid var(--gray100)}
+.modal-actions li::before{content:'';position:absolute;left:2px;top:14px;width:10px;height:10px;border-radius:3px;border:2px solid var(--sf)}
+.modal-actions li:last-child{border-bottom:none}
+
+/* Modal: issues list */
+.modal-issues{list-style:none;padding:0;margin-bottom:24px}
+.modal-issues li{font-size:.8rem;color:var(--gray600);padding:8px 0 8px 20px;position:relative;border-bottom:1px solid var(--gray100)}
+.modal-issues li::before{content:'';position:absolute;left:2px;top:14px;width:10px;height:10px;border-radius:3px;background:var(--yellow)}
+.modal-issues li:last-child{border-bottom:none}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">一二三 PJT</div>
+    <div class="nav-links">
+      <a href="#hero">Top</a>
+      <a href="#sec2">2. ヒアリング結果</a>
+      <a href="#sec3">3. 進め方</a>
+      <a href="#sec4">4. ネクストアクション</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <h1>一二三 × <span class="sf">Salesforce</span></h1>
+  <p class="subtitle">2ヶ月間のヒアリング結果と今後の進め方</p>
+  <p class="date">2026年4月8日</p>
+
+  <div class="agenda-cards" id="agenda">
+    <a href="#sec2" class="agenda-card" data-r>
+      <div class="agenda-num">AGENDA 2</div>
+      <h3>ヒアリング結果報告</h3>
+      <p>9回のMTGで把握した業務の全体像と課題</p>
+    </a>
+    <a href="#sec3" class="agenda-card" data-r>
+      <div class="agenda-num">AGENDA 3</div>
+      <h3>今後の進め方</h3>
+      <p>課題の優先順位と週単位マイルストーン</p>
+    </a>
+    <a href="#sec4" class="agenda-card" data-r>
+      <div class="agenda-num">AGENDA 4</div>
+      <h3>ネクストアクション</h3>
+      <p>本日確認したい具体的なタスクと担当</p>
+    </a>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================================ -->
+<!-- AGENDA 2: ヒアリング結果報告 -->
+<!-- ============================================================ -->
+<div class="sec" id="sec2">
+  <p class="sec-label blue" data-r>Agenda 2</p>
+  <h2 class="sec-title" data-r>ここまで2ヶ月間のヒアリング結果報告</h2>
+  <p class="sec-desc" data-r>2月9日〜3月30日にかけて計9回のMTGを実施。問い合わせ受付から集金完了まで、業務フローの全体像を把握しました。</p>
+
+  <div class="stats" data-r>
+    <div class="stat"><div class="stat-val">9</div><div class="stat-lbl">回のMTG</div></div>
+    <div class="stat"><div class="stat-val">7</div><div class="stat-lbl">名の関係者</div></div>
+    <div class="stat"><div class="stat-val">~7h</div><div class="stat-lbl">総ヒアリング時間</div></div>
+    <div class="stat"><div class="stat-val">5</div><div class="stat-lbl">種のExcel</div></div>
+    <div class="stat"><div class="stat-val">16</div><div class="stat-lbl">件の未解決事項</div></div>
+  </div>
+
+  <!-- Timeline -->
+  <h3 class="sub-heading" data-r>MTGタイムライン</h3>
+  <div class="tl" data-r>
+    <div class="tl-item milestone">
+      <a class="tl-link" href="#" onclick="openMtg(1);return false">
+        <div class="tl-date">2/9 AM — #1 全体会議1日目</div>
+        <div class="tl-title">プロジェクト体制を一二三様全スタッフに初公開</div>
+        <div class="tl-body">2〜3月ヒアリング期 → 4月以降定例・構築期のスケジュール合意</div>
+      </a>
+    </div>
+    <div class="tl-item">
+      <a class="tl-link" href="#" onclick="openMtg(2);return false">
+        <div class="tl-date">2/9 PM — #2 全体会議1日目（午後）</div>
+        <div class="tl-title">経営方針・採用・マーケ施策の全体把握</div>
+        <div class="tl-body">採用予算2倍化、テレビCM効果（CPA 7.4万円）、インフルエンサー起用検討</div>
+      </a>
+    </div>
+    <div class="tl-item">
+      <a class="tl-link" href="#" onclick="openMtg(3);return false">
+        <div class="tl-date">2/10 — #3 全体会議2日目</div>
+        <div class="tl-title">関西・九州エリアへの担当者紹介</div>
+        <div class="tl-body">各営業所へのSalesforce導入紹介。AI活用の検討も提起</div>
+      </a>
+    </div>
+    <div class="tl-item">
+      <a class="tl-link" href="#" onclick="openMtg(4);return false">
+        <div class="tl-date">2/12 — #4 アカウント発行</div>
+        <div class="tl-title">Salesforceトライアル組織へのアクセス確保</div>
+        <div class="tl-body">構築用アカウント作成・ログイン確認完了（約10分）</div>
+      </a>
+    </div>
+    <div class="tl-item milestone">
+      <a class="tl-link" href="#" onclick="openMtg(5);return false">
+        <div class="tl-date">2/18 — #5 業務フローヒアリング第1回</div>
+        <div class="tl-title">集客〜集金の全体フロー確認（鳥飼氏・萩本氏）</div>
+        <div class="tl-body">月間300件中15〜20件が繰越と判明。注文書フォーマット強制化を合意。LINE報告テンプレート化を決定</div>
+      </a>
+    </div>
+    <div class="tl-item milestone">
+      <a class="tl-link" href="#" onclick="openMtg(6);return false">
+        <div class="tl-date">3/2 — #6 業務フローヒアリング第2回</div>
+        <div class="tl-title">社内用語定義と日程調整漏れ問題の発見</div>
+        <div class="tl-body">「電話したっけ？まだだっけ？」が全国的に発生。萩本氏「外部視点での見直し提案を歓迎する」と明言</div>
+      </a>
+    </div>
+    <div class="tl-item milestone">
+      <a class="tl-link" href="#" onclick="openMtg(7);return false">
+        <div class="tl-date">3/18 — #7 事務ヒアリング第1回</div>
+        <div class="tl-title">事務フロー全体を確認（岸えり氏・トリガイ氏）</div>
+        <div class="tl-body">LINE・Excel・Dropboxへの強依存が浮上。セカンド確認の証跡不在、入金漏れの目視依存を確認</div>
+      </a>
+    </div>
+    <div class="tl-item milestone">
+      <a class="tl-link" href="#" onclick="openMtg(8);return false">
+        <div class="tl-date">3/24 — #8 事務ヒアリング第2回</div>
+        <div class="tl-title">現行Excel5種のウォークスルー（岸えり氏）</div>
+        <div class="tl-body">顧客情報・顧客データ・集金シート・営業報告・外注費管理表の構造を網羅。岸氏「自動で出てきたら最高」</div>
+      </a>
+    </div>
+    <div class="tl-item milestone">
+      <a class="tl-link" href="#" onclick="openMtg(9);return false">
+        <div class="tl-date">3/30 — #9 多者間進捗共有</div>
+        <div class="tl-title">Salesforceデモ実施・体制確定・オペレーション方針合意</div>
+        <div class="tl-body">江頭氏（shintech）4月参加決定。データ登録を営業→事務に変更で合意。ズームフォンCTI EOL（2028-02-28）判明</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 業務フロー AS-IS -->
+  <h3 class="sub-heading" data-r>現行の業務フロー（AS-IS）</h3>
+  <p class="sub-desc" data-r>問い合わせから集金まで、LINE・Excel・Dropbox・紙・FAXの組み合わせで運用。赤は課題箇所。</p>
+
+  <div class="flow" data-r>
+    <div class="flow-step"><h5>問い合わせ</h5><p>HP / チラシ / TEL</p></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step problem"><h5>振り分け</h5><p>LINE手動<br><small>記録なし</small></p></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step problem"><h5>日程調整</h5><p>電話 / LINE<br><small>追跡漏れ</small></p></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step"><h5>訪問・契約</h5><p>3回訪問</p></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step problem"><h5>契約書処理</h5><p>FAX→Excel<br><small>2段階転記</small></p></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step problem"><h5>施工管理</h5><p>電話 / 記憶<br><small>手配漏れ</small></p></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step problem"><h5>入金確認</h5><p>銀行目視<br><small>消込なし</small></p></div>
+  </div>
+
+  <!-- 5種のExcel -->
+  <h3 class="sub-heading" data-r>事務部門の5種のExcel</h3>
+  <p class="sub-desc" data-r>全てDropbox共有。岸氏がほぼ一人で運用しており、属人化リスクが高い状態。</p>
+  <div class="excel-map" data-r>
+    <div class="excel-item"><h5>顧客情報2026</h5><p>契約書到着で入力する起点。顧客番号・工事内容・請負代金</p></div>
+    <div class="excel-item"><h5>顧客データ</h5><p>顧客情報から転記。集金金額合計（契約金・着工金・完工金）</p></div>
+    <div class="excel-item"><h5>集金シート</h5><p>集金済み顧客のみ抽出。経理ソフトとの照合用</p></div>
+    <div class="excel-item"><h5>営業報告シート</h5><p>毎日入力。現金集金の記録。全員で1シート共用</p></div>
+    <div class="excel-item"><h5>外注費管理表</h5><p>営業側管理。着工予定日・外注費の記録</p></div>
+  </div>
+
+  <!-- 発見された主要課題 -->
+  <h3 class="sub-heading" data-r>発見された主要課題</h3>
+  <div class="findings" data-r>
+    <div class="finding">
+      <div class="finding-badge critical">重要度: 高</div>
+      <h4>入金繰越の常態化</h4>
+      <p>月間300件中15〜20件が集金期限超過で繰越。鳥飼氏「しっかり管理すれば10件はなくせる」。</p>
+      <div class="evidence">MTG#5 鳥飼氏 t=3184</div>
+    </div>
+    <div class="finding">
+      <div class="finding-badge critical">重要度: 高</div>
+      <h4>日程調整の追跡漏れ</h4>
+      <p>問い合わせ後の電話対応結果が記録されず「電話したっけ？まだだっけ？」が全国的に発生。</p>
+      <div class="evidence">MTG#6 鳥飼氏 t=1159</div>
+    </div>
+    <div class="finding">
+      <div class="finding-badge critical">重要度: 高</div>
+      <h4>事務業務の属人化</h4>
+      <p>5種のExcel管理が岸氏にほぼ一人で依存。口頭慣習に依存するフィールド（丸1〜3の歩合番号等）が複数。</p>
+      <div class="evidence">MTG#8 岸氏「自動で出てきたら最高」</div>
+    </div>
+    <div class="finding">
+      <div class="finding-badge warning">重要度: 中</div>
+      <h4>セカンド確認の証跡不在</h4>
+      <p>工事契約の第三者確認の実施有無がLINE遡りでしか確認できず、18時以降の不正リスクも潜在。</p>
+      <div class="evidence">MTG#7 岸氏 t=1263 / トリガイ氏 t=1547</div>
+    </div>
+    <div class="finding">
+      <div class="finding-badge warning">重要度: 中</div>
+      <h4>入金確認の目視依存</h4>
+      <p>毎朝の銀行口座目視確認→LINEで3段階報告。請求書消し込み作業は存在せず。</p>
+      <div class="evidence">MTG#7 岸氏 t=2550</div>
+    </div>
+    <div class="finding">
+      <div class="finding-badge warning">重要度: 中</div>
+      <h4>現金集金の管理不足</h4>
+      <p>100万単位の現金集金が担当者任せ。契約書なしで現場完結するケースあり。</p>
+      <div class="evidence">MTG#5 t=3945〜4025</div>
+    </div>
+  </div>
+
+  <div class="summary-box" data-r>
+    <h4>ヒアリング結果のまとめ</h4>
+    <p>
+      現行業務はLINE・Excel(5種)・Dropbox・FAX・電話の組み合わせで運用されており、<strong>データの断絶と手作業依存</strong>が随所に存在します。<br>
+      特に「入金繰越」「日程調整漏れ」「事務属人化」は<strong>業務品質と売上に直結する課題</strong>であり、Salesforce導入で仕組みとして解決できる領域です。<br>
+      MTG#6で萩本氏より「外部視点からの業務フロー見直し提案を歓迎する」との明言をいただいており、単なるExcel置き換えではなく<strong>業務フローの最適化も含めた設計</strong>を進めます。
+    </p>
+  </div>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================================ -->
+<!-- AGENDA 3: 今後のプロジェクトの進め方 -->
+<!-- ============================================================ -->
+<div class="sec" id="sec3">
+  <p class="sec-label green" data-r>Agenda 3</p>
+  <h2 class="sec-title" data-r>今後のプロジェクトの進め方</h2>
+  <p class="sec-desc" data-r>発見された課題を「どの順番で」「どう解決するか」を週単位のマイルストーンで示します。現場が最も効果を実感できる順に着手します。</p>
+
+  <!-- 課題 → 解決策 マッピング -->
+  <h3 class="sub-heading" data-r>課題 → 解決アプローチ → 対応時期</h3>
+  <p class="sub-desc" data-r>ヒアリングで発見した課題それぞれに対して、どのフェーズで・どう解決するかを整理しました。</p>
+
+  <div class="solution-map" data-r>
+    <div class="sol-row">
+      <div class="sol-issue"><h5>入金繰越の常態化</h5><p>15〜20件/月の集金期限超過</p></div>
+      <div class="sol-arrow">&rarr;</div>
+      <div class="sol-how"><h5>入金漏れレポート</h5><p>着工3日後未集金リストを自動生成、赤黄緑で事務画面に表示</p></div>
+      <div class="sol-arrow">&rarr;</div>
+      <div class="sol-result"><h5>繰越 -10件/月</h5><p>事務が毎朝確認し先手で営業に通知</p></div>
+    </div>
+    <div class="sol-row">
+      <div class="sol-issue"><h5>事務業務の属人化</h5><p>Excel5種を岸氏が一人で運用</p></div>
+      <div class="sol-arrow">&rarr;</div>
+      <div class="sol-how"><h5>顧客情報一元管理</h5><p>5種Excel→Salesforce1画面に統合。OCR自動転記で入力負荷も軽減</p></div>
+      <div class="sol-arrow">&rarr;</div>
+      <div class="sol-result"><h5>引き継ぎ可能な業務へ</h5><p>岸氏が休んでも業務が回る</p></div>
+    </div>
+    <div class="sol-row">
+      <div class="sol-issue"><h5>日程調整の追跡漏れ</h5><p>「電話したっけ？」が全国的に発生</p></div>
+      <div class="sol-arrow">&rarr;</div>
+      <div class="sol-how"><h5>未対応リスト自動生成</h5><p>問い合わせ→日程調整の状態をカンバン表示</p></div>
+      <div class="sol-arrow">&rarr;</div>
+      <div class="sol-result"><h5>対応漏れゼロへ</h5><p>未読/済みが一目で把握可能</p></div>
+    </div>
+    <div class="sol-row">
+      <div class="sol-issue"><h5>セカンド確認の証跡不在</h5><p>LINE遡りでしか確認できない</p></div>
+      <div class="sol-arrow">&rarr;</div>
+      <div class="sol-how"><h5>セカンド実施記録</h5><p>一覧表示+18時以降は自動ルーティング</p></div>
+      <div class="sol-arrow">&rarr;</div>
+      <div class="sol-result"><h5>不正リスク低減</h5><p>実施状況が証跡として残る</p></div>
+    </div>
+    <div class="sol-row">
+      <div class="sol-issue"><h5>入金確認の目視依存</h5><p>毎朝銀行→LINE3段階報告</p></div>
+      <div class="sol-arrow">&rarr;</div>
+      <div class="sol-how"><h5>入金状況ダッシュボード</h5><p>未入金/確認待ち/完了をKPIカードで表示</p></div>
+      <div class="sol-arrow">&rarr;</div>
+      <div class="sol-result"><h5>朝3時間→30分</h5><p>月曜午前の作業時間を大幅短縮</p></div>
+    </div>
+    <div class="sol-row">
+      <div class="sol-issue"><h5>経営判断のデータ不足</h5><p>各営業所が数字を口頭報告</p></div>
+      <div class="sol-arrow">&rarr;</div>
+      <div class="sol-how"><h5>経営ダッシュボード</h5><p>営業所別KPI・チャネル別ROI・繰越率をリアルタイム表示</p></div>
+      <div class="sol-arrow">&rarr;</div>
+      <div class="sol-result"><h5>データドリブン経営</h5><p>WHYが見える意思決定</p></div>
+    </div>
+  </div>
+
+  <!-- Before / After -->
+  <h3 class="sub-heading" data-r>日常業務の変化イメージ</h3>
+  <div class="ba-grid" data-r>
+    <div class="ba-col before">
+      <span class="ba-tag before-tag">BEFORE（現在）</span>
+      <ul class="ba-list">
+        <li><strong>毎朝</strong> 銀行口座を目視確認 → LINEで3段階報告</li>
+        <li><strong>契約書</strong> FAX受領 → Excel手入力 → 別Excelに転記</li>
+        <li><strong>日程調整</strong> 「電話したっけ？」を記憶で管理</li>
+        <li><strong>セカンド</strong> 実施有無はLINE遡りで確認</li>
+        <li><strong>月末</strong> 繰越が判明してから慌てて対応</li>
+        <li><strong>経営判断</strong> 各営業所が口頭で数字報告</li>
+      </ul>
+    </div>
+    <div class="ba-col after">
+      <span class="ba-tag after-tag">AFTER（Salesforce導入後）</span>
+      <ul class="ba-list">
+        <li><strong>毎朝</strong> 「事務の朝画面」で未入金リストが赤黄緑で一覧</li>
+        <li><strong>契約書</strong> スキャン → OCR自動読取 → 確認1クリック</li>
+        <li><strong>日程調整</strong> 未対応リストが自動生成・一目瞭然</li>
+        <li><strong>セカンド</strong> 実施状況一覧 / 18時以降は自動ルーティング</li>
+        <li><strong>月初から</strong> 繰越リスク一覧でリアルタイム把握</li>
+        <li><strong>経営判断</strong> 全営業所KPIがダッシュボードでリアルタイム比較</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== 週単位マイルストーン ===== -->
+  <h3 class="sub-heading" data-r>週単位マイルストーン</h3>
+  <p class="sub-desc" data-r>全4フェーズ・約3ヶ月。Phase 1で事務の朝画面を最速で届け、「Salesforceで仕事が楽になった」体験を早期に作ります。</p>
+
+  <div class="gantt" data-r>
+    <!-- Phase 1 -->
+    <div class="gantt-phase">
+      <div class="gantt-phase-header">
+        <span class="gantt-phase-badge p1">PHASE 1</span>
+        <span class="gantt-phase-title">基盤構築 + 事務の朝画面（4月）</span>
+      </div>
+      <div class="gantt-rows">
+        <div class="milestone-row">
+          <div class="ms-week">4月 W1</div>
+          <div class="ms-content">
+            <h5>定例MTG開始 / オブジェクト設計</h5>
+            <p>Salesforceの顧客・案件・入金オブジェクト設計。口頭慣習依存フィールド（丸1〜3等）の再定義・文書化。岸氏と入力項目・タイミングを確定</p>
+          </div>
+          <div class="ms-who"><strong>千葉 × 岸氏</strong>Murakami氏</div>
+          <div class="ms-status design">設計</div>
+        </div>
+        <div class="milestone-row">
+          <div class="ms-week">4月 W2</div>
+          <div class="ms-content">
+            <h5>データクレンジング / 入金漏れレポート着手</h5>
+            <p>既存Excel5種のデータ品質確認・移行方針確定。入金漏れレポート（着工3日後未集金リスト）の実装開始</p>
+          </div>
+          <div class="ms-who"><strong>千葉</strong>岸氏（データ確認）</div>
+          <div class="ms-status build">構築</div>
+        </div>
+        <div class="milestone-row">
+          <div class="ms-week">4月 W3</div>
+          <div class="ms-content">
+            <h5>契約書OCR自動転記 / PDFバトラー連携</h5>
+            <p>モバイルからの契約書アップロード→OCR読取→確認1クリック。請求書自動生成（PDFバトラー）の実装</p>
+          </div>
+          <div class="ms-who"><strong>千葉 × Murakami氏</strong></div>
+          <div class="ms-status build">構築</div>
+        </div>
+        <div class="milestone-row">
+          <div class="ms-week">4月 W4</div>
+          <div class="ms-content">
+            <h5>事務の朝画面リリース / 岸氏による検証開始</h5>
+            <p>顧客一元管理+入金漏れレポート+OCR転記を統合した「事務の朝画面」をリリース。岸氏が実業務で検証開始</p>
+          </div>
+          <div class="ms-who"><strong>岸氏</strong>千葉（支援）</div>
+          <div class="ms-status release">リリース</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="gantt-phase">
+      <div class="gantt-phase-header">
+        <span class="gantt-phase-badge p2">PHASE 2</span>
+        <span class="gantt-phase-title">営業所パイプライン（5月）</span>
+      </div>
+      <div class="gantt-rows">
+        <div class="milestone-row">
+          <div class="ms-week">5月 W1</div>
+          <div class="ms-content">
+            <h5>日程調整追跡管理の設計・実装</h5>
+            <p>問い合わせ→日程調整の状態を「未対応/対応中/確定」で管理。関西営業所のタイムツリー運用をモデルに設計</p>
+          </div>
+          <div class="ms-who"><strong>千葉 × 鳥飼氏</strong></div>
+          <div class="ms-status build">構築</div>
+        </div>
+        <div class="milestone-row">
+          <div class="ms-week">5月 W1</div>
+          <div class="ms-content">
+            <h5>追加スコープ提案（工程管理等）</h5>
+            <p>Phase 1の運用状況を踏まえ、工程管理・リフォーム詳細管理・セカンド管理等の追加機能を提案</p>
+          </div>
+          <div class="ms-who"><strong>千葉</strong>→一二三様</div>
+          <div class="ms-status plan">提案</div>
+        </div>
+        <div class="milestone-row">
+          <div class="ms-week">5月 W2-3</div>
+          <div class="ms-content">
+            <h5>案件ステージ管理（カンバン）/ スマホ入力</h5>
+            <p>問い合わせ→日程確定→契約→着工→集金完了のカンバン表示。営業がスマホで状態を確認・更新できるUI</p>
+          </div>
+          <div class="ms-who"><strong>千葉 × Murakami氏</strong></div>
+          <div class="ms-status build">構築</div>
+        </div>
+        <div class="milestone-row">
+          <div class="ms-week">5月 W3</div>
+          <div class="ms-content">
+            <h5>LINE通知連携</h5>
+            <p>Salesforce更新時にLINEで要約通知を送信。営業がLINEを起点にSalesforceへ遷移する導線設計</p>
+          </div>
+          <div class="ms-who"><strong>千葉</strong></div>
+          <div class="ms-status build">構築</div>
+        </div>
+        <div class="milestone-row">
+          <div class="ms-week">5月 W4</div>
+          <div class="ms-content">
+            <h5>営業所パイプラインリリース / 名古屋パイロット</h5>
+            <p>名古屋営業所（鳥飼氏）でパイロット運用開始。フィードバック収集→改善を1週間で回す</p>
+          </div>
+          <div class="ms-who"><strong>鳥飼氏</strong>千葉（支援）</div>
+          <div class="ms-status release">リリース</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="gantt-phase">
+      <div class="gantt-phase-header">
+        <span class="gantt-phase-badge p3">PHASE 3</span>
+        <span class="gantt-phase-title">経営ダッシュボード + セカンド管理（6月）</span>
+      </div>
+      <div class="gantt-rows">
+        <div class="milestone-row">
+          <div class="ms-week">6月 W1-2</div>
+          <div class="ms-content">
+            <h5>全営業所KPIダッシュボード構築</h5>
+            <p>営業所別の契約件数・集金率・繰越率をランキング表示。チャネル別（チラシ/CM/YouTube/HP）のリード単価・契約率比較</p>
+          </div>
+          <div class="ms-who"><strong>千葉</strong></div>
+          <div class="ms-status build">構築</div>
+        </div>
+        <div class="milestone-row">
+          <div class="ms-week">6月 W2-3</div>
+          <div class="ms-content">
+            <h5>セカンド管理・証跡記録の実装</h5>
+            <p>セカンド実施状況の一覧管理。18時以降の自動ルーティング。実施/未実施の証跡をシステムに記録</p>
+          </div>
+          <div class="ms-who"><strong>千葉 × 岸氏</strong></div>
+          <div class="ms-status build">構築</div>
+        </div>
+        <div class="milestone-row">
+          <div class="ms-week">6月 W4</div>
+          <div class="ms-content">
+            <h5>経営ダッシュボード + セカンド管理リリース</h5>
+            <p>渡邊氏・大西社長向けの意思決定画面と、事務向けセカンド管理画面をリリース</p>
+          </div>
+          <div class="ms-who"><strong>渡邊氏・大西社長</strong>千葉（支援）</div>
+          <div class="ms-status release">リリース</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 4 -->
+    <div class="gantt-phase">
+      <div class="gantt-phase-header">
+        <span class="gantt-phase-badge p4">PHASE 4</span>
+        <span class="gantt-phase-title">全営業所展開 + 定着支援（7月〜）</span>
+      </div>
+      <div class="gantt-rows">
+        <div class="milestone-row">
+          <div class="ms-week">7月〜</div>
+          <div class="ms-content">
+            <h5>全営業所への展開・運用定着</h5>
+            <p>名古屋パイロットの成果をもとに全15営業所へ展開。営業所ごとの運用差異を吸収しながら定着支援</p>
+          </div>
+          <div class="ms-who"><strong>千葉 × 各営業所長</strong></div>
+          <div class="ms-status plan">展開</div>
+        </div>
+        <div class="milestone-row">
+          <div class="ms-week">7月〜</div>
+          <div class="ms-content">
+            <h5>追加スコープの実装（工程管理・注文書等）</h5>
+            <p>5月提案で合意された追加機能の実装。工程管理・注文書フォーマット・GPS連携等</p>
+          </div>
+          <div class="ms-who"><strong>千葉 × Murakami氏</strong></div>
+          <div class="ms-status build">構築</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 推進体制 -->
+  <h3 class="sub-heading" data-r>推進体制</h3>
+  <div class="team" data-r>
+    <div class="team-card">
+      <div class="team-avatar" style="background:var(--sf)">千</div>
+      <div><h5>千葉晨太郎（UDLR）</h5><p>PJリーダー / 設計・構築・全フェーズ推進</p></div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar" style="background:#6366f1">SF</div>
+      <div><h5>Murakami・Iwamoto・Temma</h5><p>Salesforceベンダー / 技術支援・定例参加</p></div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar" style="background:var(--green)">江</div>
+      <div><h5>江頭伸太郎（shintech）</h5><p>4月〜正式参加 / 営業業務の引き継ぎ</p></div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar" style="background:var(--yellow)">事</div>
+      <div><h5>岸えり・トリガイ・中野</h5><p>一二三様 事務 / Phase 1検証・現場要件</p></div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar" style="background:var(--red)">営</div>
+      <div><h5>鳥飼幸司・萩本</h5><p>一二三様 営業所 / Phase 2パイロット</p></div>
+    </div>
+  </div>
+
+  <!-- 主要リスクと対策 -->
+  <h3 class="sub-heading" data-r>主要リスクと対策</h3>
+  <div class="risk-grid" data-r>
+    <div class="risk-card risk-high">
+      <h5>データ整備レベルの課題</h5>
+      <p>「現在のデータ整備レベルはかなり整っていない状態」（千葉 MTG#9）。移行前のクレンジングが必要。</p>
+      <div class="mitigation">対策: 4月W2でデータ棚卸し。移行対象をPhase 1に必要な範囲に絞りスモールスタート</div>
+    </div>
+    <div class="risk-card risk-high">
+      <h5>営業のSalesforce定着リスク</h5>
+      <p>LINE通知に慣れてSalesforceを見なくなるとライナー解約リスク（Murakami氏 MTG#9）。</p>
+      <div class="mitigation">対策: Phase 2でLINE通知連携を実装し、LINEを起点にSalesforceへ誘導する導線設計</div>
+    </div>
+    <div class="risk-card risk-high">
+      <h5>口頭慣習フィールドの移行</h5>
+      <p>歩合計算用番号列（丸1〜3）等、Excel外の口頭ルールに依存するフィールドが複数。</p>
+      <div class="mitigation">対策: 4月W1で岸氏と全フィールド定義を文書化。不明点は鳥飼氏にも確認</div>
+    </div>
+    <div class="risk-card risk-mid">
+      <h5>ズームフォンCTI EOL</h5>
+      <p>2028-02-28にオープンCTI提供終了。Salesforce Voiceへの移行が必要。</p>
+      <div class="mitigation">対策: 天間氏が順次告知中。本PJとは別軸で移行計画を策定</div>
+    </div>
+  </div>
+
+  <div class="summary-box" data-r>
+    <h4>進め方の3つの原則</h4>
+    <p>
+      <strong>1. 現場が毎日使う画面から作る</strong> — Phase 1で「事務の朝画面」を最速で届け、早期に効果を実感してもらいます。<br><br>
+      <strong>2. 事務が入力し、営業に渡す</strong> — 営業にSalesforce直接入力を強制せず、事務が登録→営業がスマホで確認するオペレーションで定着率を最大化。<br><br>
+      <strong>3. 小さく出して、速く回す</strong> — 各フェーズ末にリリース→検証→改善の1週間サイクルを回し、現場の声を即座に反映します。
+    </p>
+  </div>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- ============================================================ -->
+<!-- AGENDA 4: ネクストアクション -->
+<!-- ============================================================ -->
+<div class="sec" id="sec4">
+  <p class="sec-label amber" data-r>Agenda 4</p>
+  <h2 class="sec-title" data-r>具体的なネクストアクションの確認</h2>
+  <p class="sec-desc" data-r>4月W1から定例MTGを開始し、Phase 1の設計・実装に着手します。以下のアクションを本日確認させてください。</p>
+
+  <h3 class="sub-heading" data-r>4月中に完了するアクション</h3>
+  <div class="actions" data-r>
+    <div class="action">
+      <div class="action-num p-high">1</div>
+      <div class="action-content">
+        <h5>定例MTGの日程確定・開始</h5>
+        <p>週1回の定例体制を確立。江頭氏（shintech）も全回参加。初回でPhase 1のキックオフを実施</p>
+      </div>
+      <div class="action-meta">
+        <div class="action-who">Murakami氏</div>
+        <div class="action-when">4月W1で確定</div>
+      </div>
+    </div>
+    <div class="action">
+      <div class="action-num p-high">2</div>
+      <div class="action-content">
+        <h5>Salesforceオブジェクト設計 + フィールド定義文書化</h5>
+        <p>顧客・案件・入金オブジェクトの設計。丸1〜3等の口頭慣習フィールドを岸氏と再定義・文書化</p>
+      </div>
+      <div class="action-meta">
+        <div class="action-who">千葉 × 岸氏</div>
+        <div class="action-when">4月W1</div>
+      </div>
+    </div>
+    <div class="action">
+      <div class="action-num p-high">3</div>
+      <div class="action-content">
+        <h5>既存データの棚卸し・クレンジング方針確定</h5>
+        <p>Excel5種のデータ品質確認。Phase 1に必要なデータ範囲を特定し、移行手順を確定</p>
+      </div>
+      <div class="action-meta">
+        <div class="action-who">千葉</div>
+        <div class="action-when">4月W2</div>
+      </div>
+    </div>
+    <div class="action">
+      <div class="action-num p-high">4</div>
+      <div class="action-content">
+        <h5>入金漏れレポートの実装</h5>
+        <p>着工日から3日後に未集金の案件をリスト表示。Phase 1の中核機能として最優先で構築</p>
+      </div>
+      <div class="action-meta">
+        <div class="action-who">千葉 × Murakami氏</div>
+        <div class="action-when">4月W2-3</div>
+      </div>
+    </div>
+    <div class="action">
+      <div class="action-num p-mid">5</div>
+      <div class="action-content">
+        <h5>契約書OCR自動転記の実装</h5>
+        <p>モバイルから契約書アップロード→OCR→事務確認→1クリック転記。FAX大量処理も効率化</p>
+      </div>
+      <div class="action-meta">
+        <div class="action-who">千葉 × Murakami氏</div>
+        <div class="action-when">4月W3</div>
+      </div>
+    </div>
+    <div class="action">
+      <div class="action-num p-mid">6</div>
+      <div class="action-content">
+        <h5>PDFバトラー契約・連携実装</h5>
+        <p>ジャングルジム事務所名義で契約手続き。請求書自動生成機能をSalesforceに組み込み</p>
+      </div>
+      <div class="action-meta">
+        <div class="action-who">千葉 / 契約:一二三様</div>
+        <div class="action-when">4月W3</div>
+      </div>
+    </div>
+    <div class="action">
+      <div class="action-num p-high">7</div>
+      <div class="action-content">
+        <h5>「事務の朝画面」リリース・岸氏検証開始</h5>
+        <p>入金漏れレポート+顧客一元管理+OCR転記を統合した画面をリリース。岸氏が実業務で検証</p>
+      </div>
+      <div class="action-meta">
+        <div class="action-who">岸氏 / 千葉（支援）</div>
+        <div class="action-when">4月W4</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sub-heading" data-r>5月以降のアクション</h3>
+  <div class="actions" data-r>
+    <div class="action">
+      <div class="action-num p-low">8</div>
+      <div class="action-content">
+        <h5>追加スコープ（工程管理等）の提案</h5>
+        <p>Phase 1の運用状況を踏まえ、工程管理・注文書フォーマット・GPS連携等の追加機能を提案</p>
+      </div>
+      <div class="action-meta">
+        <div class="action-who">千葉</div>
+        <div class="action-when">5月W1</div>
+      </div>
+    </div>
+    <div class="action">
+      <div class="action-num p-low">9</div>
+      <div class="action-content">
+        <h5>営業所パイプライン構築 + 名古屋パイロット</h5>
+        <p>日程調整追跡・案件カンバン・スマホ入力・LINE通知を構築し、名古屋営業所でパイロット運用</p>
+      </div>
+      <div class="action-meta">
+        <div class="action-who">千葉 × 鳥飼氏</div>
+        <div class="action-when">5月</div>
+      </div>
+    </div>
+    <div class="action">
+      <div class="action-num p-low">10</div>
+      <div class="action-content">
+        <h5>経営ダッシュボード + セカンド管理リリース</h5>
+        <p>営業所別KPI・チャネル別ROI・セカンド証跡管理を構築しリリース</p>
+      </div>
+      <div class="action-meta">
+        <div class="action-who">千葉</div>
+        <div class="action-when">6月</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 本日確認事項 -->
+  <h3 class="sub-heading" data-r>本日確認したい事項</h3>
+  <table class="confirm-table" data-r>
+    <thead>
+      <tr><th>#</th><th>確認事項</th><th>現状</th><th>確認したいこと</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>定例MTGの曜日・時間</td>
+        <td>Murakami氏が4月1日以降に確定予定</td>
+        <td>一二三様側のご希望の曜日・時間帯</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Phase 1の参加メンバー</td>
+        <td>岸氏が主な検証担当の想定</td>
+        <td>中野氏・トリガイ氏の参加頻度</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>データ移行の範囲</td>
+        <td>顧客情報2026が最重要</td>
+        <td>過去データはどこまで移行するか</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>PDFバトラー契約手続き</td>
+        <td>ジャングルジム事務所名義で進行予定</td>
+        <td>契約手続きの進捗・担当者</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>4月W4の検証方法</td>
+        <td>岸氏が実業務で検証する想定</td>
+        <td>テストデータ or 実データどちらで検証するか</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>追加スコープの方向性</td>
+        <td>5月提案予定・範囲未確定</td>
+        <td>一二三様側で優先度の高い機能</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout" data-r>
+    <div class="callout-item">
+      <div class="callout-val" style="color:var(--sf)">4月末</div>
+      <div class="callout-lbl">事務の朝画面リリース</div>
+    </div>
+    <div class="callout-item">
+      <div class="callout-val" style="color:#15803d">5月末</div>
+      <div class="callout-lbl">営業所パイプライン</div>
+    </div>
+    <div class="callout-item">
+      <div class="callout-val" style="color:#b45309">6月末</div>
+      <div class="callout-lbl">経営ダッシュボード</div>
+    </div>
+    <div class="callout-item">
+      <div class="callout-val" style="color:var(--purple)">7月〜</div>
+      <div class="callout-lbl">全営業所展開</div>
+    </div>
+  </div>
+</div>
+
+<!-- CLOSING -->
+<div class="closing">
+  <p data-r>9回のMTGで業務の全体像を把握しました。<br>ここからは一緒に「使われるシステム」を作るフェーズです。</p>
+  <p class="big" data-r>現場の方々が毎日使う画面だからこそ、<br>現場の方々と一緒に作ります。</p>
+</div>
+
+<footer>UDLR × 一二三グループ — Confidential / 2026-04-08</footer>
+
+<!-- ===== MODAL ===== -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeMtg()"></div>
+<div class="modal-panel" id="modalPanel">
+  <div class="modal-header">
+    <h3 id="modalTitle">MTG詳細</h3>
+    <button class="modal-close" onclick="closeMtg()">&times;</button>
+  </div>
+  <div class="modal-body" id="modalBody"></div>
+</div>
+
+<script>
+// ===== Scroll reveal =====
+const obs = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); }
+}), { threshold: .1 });
+document.querySelectorAll('[data-r]').forEach(el => obs.observe(el));
+
+// ===== Nav active =====
+const sections = ['sec2', 'sec3', 'sec4'];
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  for (const id of sections) {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= 120) current = id;
+  }
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+});
+
+// ===== MTG Modal =====
+const mtgData = {
+  1: {
+    title: 'MTG#1 — 全体会議1日目（午前）',
+    date: '2026-02-09 10:56〜13:56',
+    duration: '約3時間',
+    attendees: '千葉晨太郎、辰知 浅津 / 渡邊真吾、Murakami（SF）、各営業所スタッフ',
+    summary: '一二三様の全体会議初日にSalesforce・ジャングルジム双方が参加し、4月本格構築に向けたプロジェクト体制を初めて一二三様全スタッフへ紹介。村上氏がリード、千葉・浅津がサポート役として紹介された。2〜3月をヒアリング期、4月以降を定例・構築期とするスケジュールで合意。川越営業所（目標達成）・別営業所（3100万売上）ともに1月は好調。',
+    agenda: [
+      ['Salesforce プロジェクト体制紹介', '村上氏がリード、千葉・浅津がサポート。渡邊氏「予定通り」と了承'],
+      ['2〜3月ヒアリング期間の進め方', '4月以降の本格構築開始に向け、2〜3月を「ヒアリング期間」と位置付け'],
+      ['4月以降の定例体制', '週1回の定例会を設けて設計・画面仕様の最終調整を行う'],
+      ['川越営業所 1月成績と2月目標', '目標1155万→1188万達成。2月は粗利1200万・新規15件・追加8件'],
+      ['小野さんの配置', '「催事中心」の方向で検討、本人意向未確認'],
+      ['池袋営業所長候補の選定', '会議中に決まらず、引き続き検討中']
+    ],
+    actions: [
+      '千葉: デモ環境の確認・アクセス権取得のため村上氏にチャットで依頼',
+      '渡邊 / 千葉: 2〜3月ヒアリングの日程調整と参加者確認を実施',
+      '渡邊: 小野さん本人と配置意向の面談を実施',
+      '川越所長: 石橋（新ミドルクローザー）の参加準備（2/16頃目標）'
+    ],
+    issues: [
+      '池袋所長候補: 渡邊氏が「今考え中」と発言、次回以降に持ち越し',
+      '小野さんの最終配置先: 「催事中心」が有力だが本人意向未確認'
+    ]
+  },
+  2: {
+    title: 'MTG#2 — 全体会議1日目（午後）',
+    date: '2026-02-09 14:10〜16:03',
+    duration: '約2時間',
+    attendees: '千葉晨太郎 / 渡邊真吾、トリガイ、他幹部複数名',
+    summary: '採用予算を前年比2倍に増額した結果の速報（対前年1.6倍）が共有され、都市部集中が有効と確認。リクルーター組織再編（承諾率連動制度）、テレアポ2月終了と自社事業化の決定、インフルエンサー（村重杏奈氏）起用の検討状況が報告された。テレビCM3ヶ月の効果検証（CPA 7.4万円、指名検索3.5倍）も提示。',
+    agenda: [
+      ['採用予算倍増の効果測定', '対前年1.6倍達成。2月・3月で2倍を目指す。都市部重視に最適化'],
+      ['リクルーター組織再編', '承諾率低いリクルーターは別事業へ配置転換。高い人はメイン認定+給料アップ'],
+      ['テレアポの終了と自社事業化', '2月でテレアポ委託終了。CPA 2,500円のデータが揃い自社事業構築へ'],
+      ['インフルエンサー起用（村重杏奈氏）', '今月中に契約打ち合わせ（代表同席）、早ければ4月からSNS活用'],
+      ['テレビCM効果検証', '3ヶ月・1,800万円でCPA 7.4万円。渡邊氏判断で今年いっぱい継続'],
+      ['来年度経営方針共有会', '3月4〜5日に開催確定。幹部全員参加']
+    ],
+    actions: [
+      'トリガイ: 採用予算の都市部集中最適化を実施（〜3月末）',
+      'トリガイ: 村重杏奈氏との契約打ち合わせを代表同席でセット（2月中）',
+      '室: BS広告の継続可否について渡邊氏と協議（2月中）',
+      '室: ポスティング業者を元業者に戻す（即時）'
+    ],
+    issues: [
+      'BS広告の継続可否: 渡邊氏への別途相談待ち',
+      '地方テレビの展開範囲: 単価の折り合いがついていない',
+      '岡崎エリアの採用不振: 原因未解明'
+    ]
+  },
+  3: {
+    title: 'MTG#3 — 全体会議2日目',
+    date: '2026-02-10 10:56〜13:56',
+    duration: '約3時間',
+    attendees: '千葉晨太郎 / 渡邊真吾、村上祐介（SF）、関西・九州エリア各社長',
+    summary: 'Salesforce導入・アプリ開発の担当者紹介を全体に行い、2月・3月の業務ヒアリング月1〜2回 → 4月以降の定例移行という進行スケジュールを共有。大阪・群馬各営業所から1月実績と2月方針の報告。AI（Gemini / ChatGPT）活用の検討も提起。',
+    agenda: [
+      ['担当者紹介・スケジュール共有', '2〜3月は月1〜2回ヒアリング。4月以降は定例MTGで設計を推進'],
+      ['次回キックオフMTG日程調整', '16日の週の候補日を渡邊氏経由で各社長に確認'],
+      ['大阪営業所 2月方針', 'チラシさばきをメイン層に集約。中間報告の徹底'],
+      ['群馬営業所 2月方針', '前半さばき強化。4月にメイン3名・ミドル3名体制確立を目標'],
+      ['AI活用の検討', '中間報告の録音→AI要約、リフォームAIとの壁打ちを提案。2/6宮内証券で見学予定']
+    ],
+    actions: [
+      '千葉: 16日の週の候補日程をメールで渡邊氏に送付（当日中）',
+      '渡邊: 各社長に候補日程を確認し結果を千葉に報告',
+      '渡邊: 2/6に宮内証券でAI活用営業手法を見学'
+    ],
+    issues: [
+      '次回MTG確定日程: 各社長の日程確認が必要なため未確定',
+      'AI活用の具体的導入方法: 宮内証券見学後に方針を固める予定'
+    ]
+  },
+  4: {
+    title: 'MTG#4 — 構築用アカウント発行',
+    date: '2026-02-12 11:30〜11:40',
+    duration: '約10分',
+    attendees: '千葉晨太郎 / 村上裕介（SF）、山中様（ニクミ）',
+    summary: 'Salesforceトライアル組織に「ジャングルジム構築担当」アカウントを作成しログイン確認完了。鳥飼さんへのメール不達判明→SMS切り替え。次回2/18で確定。ロック管理表・外注費管理表のExcel取得依頼。',
+    agenda: [
+      ['構築用アカウントの発行', 'ユーザー名「ジャングルジム構築担当」、ライセンス「Salesforce」、プロファイル「システム管理者」で作成・確認完了'],
+      ['鳥飼さんとの連絡手段', 'メール不達のため今後はSMSでやり取り'],
+      ['次回MTG日程', '2月18日で確定'],
+      ['Excel元ファイル取得', 'ロック管理表・外注費管理表の取得を千葉に依頼']
+    ],
+    actions: [
+      '千葉: ロック管理表・外注費管理表のExcelを鳥飼さん/岸さんから取得し村上氏に送付（2/18前）',
+      '千葉: 鳥飼さんへSMSで2/18スケジュール確認の連絡（即時）'
+    ],
+    issues: [
+      'Excel元ファイルの取得先が鳥飼さんか岸さんか未確定'
+    ]
+  },
+  5: {
+    title: 'MTG#5 — 業務フローヒアリング第1回',
+    date: '2026-02-18 09:54（約68分）',
+    duration: '約68分',
+    attendees: '千葉晨太郎 / Murakami（SF）/ 鳥飼幸司、萩本勇三、中本明（一二三様）',
+    summary: '集客から契約・施工・入金・リピートまでの業務フロー全体を確認。月間約300件中15〜20件が繰越となっており、鳥飼氏の見立てでは半減可能。外注業者への注文書フォーマット強制化とLINE報告テンプレート化が合意。名古屋営業所LINEグループへの千葉参加も合意。',
+    agenda: [
+      ['現状業務フローの確認', '集客→本部事務がLINEでアサイン→3回訪問→契約。フロー認識に齟齬なし'],
+      ['LINE報告体制', '1人3件担当時、1日最低9回の中間電話。データ化されず記憶管理。テンプレート化を決定'],
+      ['入金管理・有高票', '500万超・工務店集金等のイレギュラーが月5件。有高票だけでは完結しない'],
+      ['施工管理・外注業者手配', '月末追い込みで手配漏れ→工事遅延→繰越が発生。注文書フォーマット強制化を合意'],
+      ['売上繰越の課題', '月間300件中15〜20件繰越。鳥飼氏「しっかり管理すれば10件はなくせる」'],
+      ['リピート営業', 'リスト管理なし、全て言葉ベース。Salesforceで可視化する方向性を確認'],
+      ['GPS・位置情報機能', '一部営業所でスクショ送信。千葉がLINE連携時のGPS記録実装可否を調査']
+    ],
+    actions: [
+      '鳥飼: 顧客管理表・有高票のサンプルをLINEで共有（3/2まで）',
+      '鳥飼: 千葉を名古屋営業所のLINEグループに招待（NDA前提で合意済み）',
+      '鳥飼: LINE報告テンプレート（アポ・イン・アウト・中間報告の文面例）を共有',
+      '千葉: LINE連携時のGPS位置情報記録の実装可否を調査',
+      '千葉: 業務フロー図を更新し次回事前アジェンダとして共有'
+    ],
+    issues: [
+      '現金集金の管理強化: 契約書なしで現場完結するケースあり（t=4012〜4025）',
+      '有高票のイレギュラーケース（複数会社契約）のデータモデル',
+      '注文書フォーマットの具体的な項目設計は未定',
+      '各営業所ごとの業務フロー差異: 統一/柔軟対応の判断は未実施'
+    ]
+  },
+  6: {
+    title: 'MTG#6 — 業務フローヒアリング第2回',
+    date: '2026-03-02 16:59〜18:01',
+    duration: '約61分',
+    attendees: '千葉晨太郎 / 鳥飼幸司、萩本（一二三様）',
+    summary: '問い合わせ受付から契約・集金の詳細フローをヒアリング。名古屋営業所では日程調整結果がLINEに記録されず追跡漏れが全国的に発生。社内用語（セカンド・含み・確約・工事番号1〜3番）の定義を確認。4月からのシステム開発に向け、萩本氏が「外部視点での見直し提案を歓迎する」と明言。',
+    agenda: [
+      ['問い合わせ流入と初期情報収集', '初期取得は住所・電話番号・氏名の3項目。「取りすぎると離脱する」（萩本）'],
+      ['日程調整の追跡漏れ問題', 'LINEに報告は上がるが結果が記録されず漏れ発生。「電話したっけ？まだだっけ？」（鳥飼 t=1159）'],
+      ['LINE報告と集金管理の現状', 'トップが携帯でリアルタイム確認するためのもの。スマホ入力後はシステム直接入力に一本化'],
+      ['業務用語の定義確認', 'セカンド＝第三者確認、含み＝外注費バッファ、確約＝ほぼ決定、工事番号1〜3番の定義'],
+      ['営業所間の運用統一方針', '大枠フローは全営業所共通。鳥飼氏のルールをベースに構築し各営業所トップに統一'],
+      ['業務フロー最適化の姿勢', '萩本氏「今のフローが絶対正しいとは思っていない。外部視点の見直し提案を歓迎する」（t=3182）']
+    ],
+    actions: [
+      '鳥飼: 工事管理表・顧客管理表・割高表を千葉へ共有（当日中）',
+      '鳥飼: 組織図を千葉へ共有（3月中旬目処）',
+      '千葉: 議事録・要望リストをLINEで一二三側に送付、次回日程調整',
+      '千葉: 4月〜問い合わせ日程調整「未読/済み」管理画面の設計具体化'
+    ],
+    issues: [
+      '問い合わせへの即時電話対応体制: 夕方以降の折り返しで「繋がらない→後回し→漏れ」が全国的に発生',
+      'フォーム入力項目の最適化: 将来的な追加取得設計は検討中',
+      '次回MTGへの事務スタッフ同席: 中野氏が3月10日まで繁忙'
+    ]
+  },
+  7: {
+    title: 'MTG#7 — 事務ヒアリング第1回',
+    date: '2026-03-18 08:59〜09:53',
+    duration: '約54分',
+    attendees: '千葉晨太郎 / 岸えり、トリガイ（一二三様 事務）',
+    summary: '事務業務全体フローについて岸えり氏・トリガイ氏からヒアリング。問い合わせ振り分け、チラシ集計、顧客データ転記、セカンド確認、請求書発行、入金確認、現金集金管理まで一連の業務がLINEと手動Excelに強く依存。セカンド確認の証跡不在、入金漏れの目視依存が主要課題として浮上。',
+    agenda: [
+      ['問い合わせ受付と振り分け', '事務に入り直接各営業所に流す。誰に振ったかの記録はつけていない（岸 t=239）'],
+      ['チラシ集計管理', '毎週月曜に地域・週ごとにExcel更新。チラシ番号で営業所と期間を識別'],
+      ['顧客データ管理', '顧客情報→顧客データExcelに転記。FAX受領後にOCR読込または目視訂正'],
+      ['セカンド確認プロセス', '工事契約の第三者確認。1日パイプ10行程度。実施したかどうかはLINE遡りでしか確認不可（岸 t=1318）'],
+      ['18時以降のセカンド不正リスク', '同一営業所の上長が自分で書いた後の2ndを取る運用（トリガイ t=1547）'],
+      ['請求書発行フロー', 'LINEで営業が依頼→当日仕上げ→郵送。観光目処から3日前にジムさんへ連絡'],
+      ['入金確認フロー', '毎日朝に銀行確認→入金あれば対象営業にLINEで3段階報告。消し込み作業なし（岸 t=2098）'],
+      ['現金集金管理', '営業が有高票に入力→翌朝確認し顧客データと照合。Dropboxに集約']
+    ],
+    actions: [
+      '岸・中野: チラシ集計Excel・顧客データExcel・有高票・外注費管理表を千葉に送付',
+      '千葉: 送付されたExcelデータを確認し次回MTGの議題を整理',
+      'トリガイ: LINEグループに千葉を招待'
+    ],
+    issues: [
+      'セカンド確認の証跡管理がない（岸 t=1263）',
+      '18時以降の不正リスク（トリガイ t=1547）',
+      '請求書発行の「観光目処」完了確認が担当者しか把握できない',
+      '入金漏れが銀行確認の目視に依存（岸 t=2550）'
+    ]
+  },
+  8: {
+    title: 'MTG#8 — 事務ヒアリング第2回（Excelウォークスルー）',
+    date: '2026-03-24 08:58〜09:56',
+    duration: '約58分',
+    attendees: '千葉晨太郎 / 岸えり（一二三様 事務）',
+    summary: '岸えり氏と現行Excel5種を一通りウォークスルー。顧客情報2026・顧客データ・集金シート・営業報告シート・外注費管理表の構造・運用ルールを網羅的に確認。歩合計算用番号列（丸1〜3）や評価・感想列の転用など、口頭慣習に依存するフィールドを複数特定。岸氏から「自動で出てきたら最高」と自動化ニーズが明示。',
+    agenda: [
+      ['顧客情報Excel（顧客情報2026）の構造', '契約書到着直後に入力する起点シート。顧客番号・工事内容・請負代金等を網羅'],
+      ['顧客データシートの更新タイミング', '顧客情報に貼り付けた後すぐに顧客データへ転記。集金金額は契約金・着工金・完工金の3種'],
+      ['月の集計軸（契約月基準）', '施工が翌月でも契約月で売上計上。イレギュラーな手入力が発生'],
+      ['歩合計算用番号列（丸1〜3）', '丸1=初回工事（最高歩合）、丸2=前工事残ありの追加、丸3=2回目以降。契約書に必ず記載'],
+      ['チラシ・CL・セカンド列', 'チラシ=契約元チラシ、CL=担当営業、セカンド=確認者'],
+      ['評価・感想列の現運用', '元来未使用。現在は「依頼日」「請求書締め日」を入力。岸氏が手入力'],
+      ['外注費管理表の現状', '営業側管理に移行済み。事務側は「請求書来てるかな」程度の確認'],
+      ['キャンセル処理', 'キャンセル費発生時に入力し顧客データを更新。古いデータを赤くする運用']
+    ],
+    actions: [
+      '千葉: 契約書サンプル（クリーニング用・床下改修用の2種）を岸さんから受領',
+      '千葉: 外注費管理表Excelのサンプルを岸さんから受領し構造を把握',
+      '千葉: 評価・感想列の自動入力について実現可能な自動化方法を検討・提案',
+      '岸: 契約書サンプル（2種）の画像を千葉に送付'
+    ],
+    issues: [
+      '中野さんの参加有無: タイトルに記載あるがトランスクリプトに発話なし',
+      '回数列の計算方法: 1契約=1件のカウントロジックが複雑',
+      '顧客情報の入力漏れ防止: アルバイトの契約書受取タイミングにバラつき'
+    ]
+  },
+  9: {
+    title: 'MTG#9 — 多者間進捗共有 + Salesforceデモ',
+    date: '2026-03-30 14:59〜15:56',
+    duration: '約56分',
+    attendees: '千葉晨太郎 / Murakami・Iwamoto・Temma・sinoto（SF）/ 江頭伸太郎（shintech）',
+    summary: '4月から江頭氏（shintech）が本格参加するにあたり現状共有とデモを実施。クリーニング案件管理・リフォーム案件管理・入金漏れレポートの3領域でSalesforce活用シナリオを確認。データ登録オペレーションを「営業→事務」に変更で合意。ズームフォンCTI EOL（2028-02-28）が正式判明。',
+    agenda: [
+      ['キックオフ・目的共有', '江頭氏が4月正式参加。「現在のデータ整備レベルはかなり整っていない状態」と千葉が確認（t=148）'],
+      ['大目標確認', '2029年度売上1,000億円（現状50億円×20倍）。年内に事業者営業所開設予定'],
+      ['クリーニング案件リード管理デモ', 'メール通知→人情報登録→電話対応のSalesforceフロー確認。未加電リスト・入金漏れをホームに配置'],
+      ['LINE→Salesforce切り替えの課題', 'LINEに慣れてSalesforceを見なくなるリスク（Murakami t=1351）'],
+      ['契約書OCR自動転記機能', 'モバイルアップロード→SF転記→事務確認→自動転記のフロー'],
+      ['リフォーム案件管理', '入金管理・外注費管理の2軸。工事進捗管理は今回スコープ外'],
+      ['入金漏れレポート', '着工3日後に未集金をリスト表示し随時確認できる状態を作る'],
+      ['PDFバトラー連携', '調布表・請求書作成に利用。ジャングルジム事務所名義で契約'],
+      ['オペレーション課題', 'データ登録を「営業→事務」に変更で合意（千葉 t=2208）'],
+      ['工程管理の将来機能', 'Handpadで失敗した経緯あり。現スコープ外だが将来追加方針'],
+      ['ズームフォンCTI EOL', '2028-02-28にオープンCTI終了。Salesforce Voice移行が必要（天間 t=3017）']
+    ],
+    actions: [
+      'Murakami: 定例MTGの日程確定後、千葉・江頭へ共有（4月1日以降）',
+      '千葉: 5月頃に追加スコープの提案を実施',
+      'Murakami: ズームフォンCTI EOL（2028-02-28）の告知タイミングを各営業で検討',
+      'Murakami: 4月1日以降、定例MTGの日程を確定し関係者へ共有'
+    ],
+    issues: [
+      'データ登録オペレーションの確定: 「事務が登録し営業に渡す」で合意だが具体的運用設計は未整理',
+      'モバイル利用シーンの見直し: 営業がほぼ触れない可能性あり（千葉 t=2228）',
+      'ズームフォンCTI切り替え時期: 2028-02 EOL後のSF Voice移行タイミング未確定',
+      '追加スコープの最終合意: 5月提案予定だが範囲未確定'
+    ]
+  }
+};
+
+function openMtg(n) {
+  const d = mtgData[n];
+  if (!d) return;
+  document.getElementById('modalTitle').textContent = d.title;
+
+  let html = '';
+  // Meta tags
+  html += '<div class="modal-meta">';
+  html += '<span class="modal-meta-tag date">' + d.date + '</span>';
+  html += '<span class="modal-meta-tag duration">' + d.duration + '</span>';
+  html += '</div>';
+  html += '<div class="modal-meta" style="margin-top:-12px">';
+  html += '<span class="modal-meta-tag attendees">' + d.attendees + '</span>';
+  html += '</div>';
+
+  // Summary
+  html += '<div class="modal-summary">' + d.summary + '</div>';
+
+  // Agenda table
+  html += '<h4 class="modal-sec">議題と決定事項</h4>';
+  html += '<table class="modal-table"><thead><tr><th>#</th><th>議題</th><th>内容・決定事項</th></tr></thead><tbody>';
+  d.agenda.forEach((row, i) => {
+    html += '<tr><td>' + (i + 1) + '</td><td>' + row[0] + '</td><td>' + row[1] + '</td></tr>';
+  });
+  html += '</tbody></table>';
+
+  // Actions
+  html += '<h4 class="modal-sec">アクションアイテム</h4>';
+  html += '<ul class="modal-actions">';
+  d.actions.forEach(a => { html += '<li>' + a + '</li>'; });
+  html += '</ul>';
+
+  // Issues
+  if (d.issues.length) {
+    html += '<h4 class="modal-sec">未解決事項</h4>';
+    html += '<ul class="modal-issues">';
+    d.issues.forEach(a => { html += '<li>' + a + '</li>'; });
+    html += '</ul>';
+  }
+
+  document.getElementById('modalBody').innerHTML = html;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.getElementById('modalPanel').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMtg() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.getElementById('modalPanel').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMtg(); });
+</script>
+</body>
+</html>
