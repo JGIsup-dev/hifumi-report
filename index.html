@@ -403,7 +403,7 @@ footer{text-align:center;padding:40px 24px;border-top:1px solid var(--gray200);f
       <a class="tl-link" href="#" onclick="openMtg(9);return false">
         <div class="tl-date">3/30 — #9 多者間進捗共有</div>
         <div class="tl-title">Salesforceデモ実施・体制確定・オペレーション方針合意</div>
-        <div class="tl-body">江頭氏（shintech）4月参加決定。データ登録を営業→事務に変更で合意。ズームフォンCTI EOL（2028-02-28）判明</div>
+        <div class="tl-body">江頭氏（shintech）4月参加決定。データ登録を営業→事務に変更で合意</div>
       </a>
     </div>
   </div>
@@ -790,11 +790,6 @@ footer{text-align:center;padding:40px 24px;border-top:1px solid var(--gray200);f
       <h5>口頭慣習フィールドの移行</h5>
       <p>歩合計算用番号列（丸1〜3）等、Excel外の口頭ルールに依存するフィールドが複数。</p>
       <div class="mitigation">対策: 4月W1で岸氏と全フィールド定義を文書化。不明点は鳥飼氏にも確認</div>
-    </div>
-    <div class="risk-card risk-mid">
-      <h5>ズームフォンCTI EOL</h5>
-      <p>2028-02-28にオープンCTI提供終了。Salesforce Voiceへの移行が必要。</p>
-      <div class="mitigation">対策: 天間氏が順次告知中。本PJとは別軸で移行計画を策定</div>
     </div>
   </div>
 
@@ -1255,7 +1250,7 @@ const mtgData = {
     date: '2026-03-30 14:59〜15:56',
     duration: '約56分',
     attendees: '千葉晨太郎 / Murakami・Iwamoto・Temma・sinoto（SF）/ 江頭伸太郎（shintech）',
-    summary: '4月から江頭氏（shintech）が本格参加するにあたり現状共有とデモを実施。クリーニング案件管理・リフォーム案件管理・入金漏れレポートの3領域でSalesforce活用シナリオを確認。データ登録オペレーションを「営業→事務」に変更で合意。ズームフォンCTI EOL（2028-02-28）が正式判明。',
+    summary: '4月から江頭氏（shintech）が本格参加するにあたり現状共有とデモを実施。クリーニング案件管理・リフォーム案件管理・入金漏れレポートの3領域でSalesforce活用シナリオを確認。データ登録オペレーションを「営業→事務」に変更で合意。',
     agenda: [
       ['キックオフ・目的共有', '江頭氏が4月正式参加。「現在のデータ整備レベルはかなり整っていない状態」と千葉が確認（t=148）'],
       ['大目標確認', '2029年度売上1,000億円（現状50億円×20倍）。年内に事業者営業所開設予定'],
@@ -1266,19 +1261,16 @@ const mtgData = {
       ['入金漏れレポート', '着工3日後に未集金をリスト表示し随時確認できる状態を作る'],
       ['PDFバトラー連携', '調布表・請求書作成に利用。ジャングルジム事務所名義で契約'],
       ['オペレーション課題', 'データ登録を「営業→事務」に変更で合意（千葉 t=2208）'],
-      ['工程管理の将来機能', 'Handpadで失敗した経緯あり。現スコープ外だが将来追加方針'],
-      ['ズームフォンCTI EOL', '2028-02-28にオープンCTI終了。Salesforce Voice移行が必要（天間 t=3017）']
+      ['工程管理の将来機能', 'Handpadで失敗した経緯あり。現スコープ外だが将来追加方針']
     ],
     actions: [
       'Murakami: 定例MTGの日程確定後、千葉・江頭へ共有（4月1日以降）',
       '千葉: 5月頃に追加スコープの提案を実施',
-      'Murakami: ズームフォンCTI EOL（2028-02-28）の告知タイミングを各営業で検討',
       'Murakami: 4月1日以降、定例MTGの日程を確定し関係者へ共有'
     ],
     issues: [
       'データ登録オペレーションの確定: 「事務が登録し営業に渡す」で合意だが具体的運用設計は未整理',
       'モバイル利用シーンの見直し: 営業がほぼ触れない可能性あり（千葉 t=2228）',
-      'ズームフォンCTI切り替え時期: 2028-02 EOL後のSF Voice移行タイミング未確定',
       '追加スコープの最終合意: 5月提案予定だが範囲未確定'
     ]
   }
